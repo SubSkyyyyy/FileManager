@@ -1,0 +1,76 @@
+#:kivy 2.3.0
+
+<PathInput>:
+    orientation: 'horizontal'
+
+<TextInput>:
+    halign: 'left'
+    valign: 'center'
+    cursor_color: 0, 0, 0, 1
+    font_size: 30
+    text_language: 'zh_CN'
+
+<Button>:
+    font_size: 25
+
+<CustomLabel>:
+    readonly: True
+    background_color: (0, 0, 0, 1)
+    foreground_color: (1, 1, 1, 1)
+    cursor_color: (0, 0, 0, 0)
+    border: [0, 0, 0, 0]
+
+<MenuForm>:
+    cols: 2
+    padding: 10
+
+<OperationPopup>:
+    title_size: 35
+
+<MenuPage>:
+    orientation: 'vertical'
+    PathInput:
+        size_hint: 1.0, 0.1
+        CustomLabel:
+            text: '目标路径'
+            font_size: 50
+            size_hint: 0.3, 1.0
+        TextInput:
+            id: path_input
+    MenuForm:
+        size_hint: 1.0, 0.9
+        canvas.before:
+            Color:
+                rgba: 0.5,0.5,0.5,1.000
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        canvas.after:
+            Color:
+                rgba: 0.5,0.5,0.5,1.000
+            Rectangle:
+                pos: self.x + self.width / 2, self.y
+                size: 10, self.height
+            Rectangle:
+                pos: self.x, self.y + self.height / 2
+                size: self.width, 10
+        Button:
+            id: file_move
+            text: '文件移动'
+            font_size: 45
+            on_press: root.on_file_move_press()
+        Button:
+            id: file_rename
+            text: '文件重命名'
+            font_size: 45
+            on_press: root.on_file_rename_press()
+        Button:
+            id: file_search
+            text: '文件查询'
+            font_size: 45
+            on_press: root.on_file_search_press()
+        Button:
+            id: file_scrapy
+            text: '爬取视频'
+            font_size: 45
+            on_press: root.on_file_scrapy_press()
