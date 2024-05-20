@@ -1,8 +1,7 @@
-from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
-from kivy.uix.checkbox import CheckBox
+from kivy.uix.popup import Popup
 
 from common.config import CLOSE, ENTER, ROLL_BACK
 from common.widgets import CustomLabel
@@ -66,7 +65,6 @@ class OperationPopup(Popup):
         finish_box_layout.add_widget(finish_ensure_btn)
         finish_pop_up.add_widget(finish_box_layout)
         finish_pop_up.open()
-
 
     def execute_enter_event(self, instance):
         try:

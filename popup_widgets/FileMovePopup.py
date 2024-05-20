@@ -3,13 +3,12 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.textinput import TextInput
 from kivy.clock import Clock
 from kivy.uix.checkbox import CheckBox
-from kivy.uix.popup import Popup
-from kivy.uix.button import Button
 
 from common.config import RE_PATTERN
 from common.widgets import CustomLabel
 from popup_widgets.OperationPopup import OperationPopup
 from file_operation.file_move import move_file, file_move_roll_back
+
 
 class FileMovePopup(OperationPopup):
     def __init__(self, **kwargs):
@@ -115,7 +114,6 @@ class FileMovePopup(OperationPopup):
         target_path = self.target_name_input.text
         return selected_radio.text, target_path, re_pattern, with_parent_dir_name.active
 
-
     def press_enter(self):
         try:
             option_str, target_parth, re_pattern, with_parent_name = self.get_params()
@@ -123,8 +121,6 @@ class FileMovePopup(OperationPopup):
             self.show_finish_pop_up('移动完成')
         except Exception as e:
             self.show_error_pop_up(e)
-
-
 
     def press_roll_back(self, instance):
         try:
@@ -134,7 +130,6 @@ class FileMovePopup(OperationPopup):
             self.show_finish_pop_up('回退完成')
         except Exception as e:
             self.show_error_pop_up(str(e))
-
 
     def on_toggle_btn_press(self, instance):
         if instance.text == self.move_single_file_to_parent_folder:

@@ -2,3 +2,5 @@ test/
 img/
 history/
 .idea/
+.fleet/
+__pycache__/

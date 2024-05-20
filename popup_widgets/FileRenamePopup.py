@@ -92,7 +92,6 @@ class FileRenamePopup(OperationPopup):
         except Exception as e:
             self.show_error_pop_up(str(e))
 
-
     def on_toggle_btn_press(self, instance):
         if self.replace_option_dict[instance.text] == 'main_file_name_replace':
             self.check_box_dict['文件名替换'].active = True

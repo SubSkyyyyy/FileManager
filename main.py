@@ -3,13 +3,12 @@ import os
 from kivy.app import App
 from kivy.core.text import LabelBase
 from kivy.uix.boxlayout import BoxLayout
-from popup_widgets.OperationPopup import OperationPopup
+
 from popup_widgets.FileMovePopup import FileMovePopup
 from popup_widgets.FileRenamePopup import FileRenamePopup
 from popup_widgets.FileScrapyPopup import FileScrapyPopup
 from popup_widgets.FileSearchPopup import FileSearchPopup
-
-from common.widgets import MenuForm, PathInput
+from popup_widgets.OperationPopup import OperationPopup
 
 LabelBase.register(name="Roboto", fn_regular="font_family/xingcao.ttf")
 
