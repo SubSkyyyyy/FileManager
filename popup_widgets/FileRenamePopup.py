@@ -6,6 +6,7 @@ from kivy.uix.checkbox import CheckBox
 from common.widgets import CustomLabel
 from popup_widgets.OperationPopup import OperationPopup
 from file_operation.file_rename import file_rename, file_suffix_change, rename_roll_back
+from common.config import BIG_SIZE, NORMAL_SIZE, SMALL_SIZE
 
 
 class FileRenamePopup(OperationPopup):
@@ -19,9 +20,9 @@ class FileRenamePopup(OperationPopup):
 
         input_box_layout = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.35))
         origin_pattern_label = CustomLabel(text='匹配文件名', size_hint=(0.2, 1.0), halign='center', valign='center')
-        self.origin_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=20)
+        self.origin_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=NORMAL_SIZE)
         replace_pattern_label = CustomLabel(text='替换字符', size_hint=(0.2, 1.0), halign='center', valign='center')
-        self.replace_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=20)
+        self.replace_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=NORMAL_SIZE)
         input_box_layout.add_widget(origin_pattern_label)
         input_box_layout.add_widget(self.origin_pattern_input)
         input_box_layout.add_widget(replace_pattern_label)

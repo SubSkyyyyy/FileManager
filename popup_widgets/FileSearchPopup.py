@@ -12,6 +12,7 @@ from common.widgets import CustomLabel
 
 from file_operation.file_search import file_search
 from common.utils import open_file_by_default_app, generate_thumbnail
+from common.config import NORMAL_SIZE, BIG_SIZE, SMALL_SIZE
 
 
 class FileSearchPopup(OperationPopup):
@@ -21,7 +22,7 @@ class FileSearchPopup(OperationPopup):
 
     def prepare_widgets(self):
         input_layout = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.3))
-        input_label = CustomLabel(text='关键字', font_size=25, size_hint=(0.1, 1.0), valign='center', halign='center')
+        input_label = CustomLabel(text='关键字', font_size=BIG_SIZE, size_hint=(0.1, 1.0), valign='center', halign='center')
         self.search_input = TextInput(size_hint=(0.9, 1.0))
         input_layout.add_widget(input_label, self.search_input)
         input_layout.add_widget(self.search_input)
@@ -96,9 +97,9 @@ class FileSearchPopup(OperationPopup):
                     if img_path:
                         image = Image(source=img_path, size_hint=(0.2, 1.0))
                         file_label_layout.add_widget(image)
-                    file_path_label = CustomLabel(text=r.replace(self.path_text, '').strip('\\'), size_hint=(0.8, 1.0), font_size=25)
+                    file_path_label = CustomLabel(text=r.replace(self.path_text, '').strip('\\'), size_hint=(0.8, 1.0), font_size=BIG_SIZE)
                     file_size = round(os.path.getsize(r) / 1024 / 1024, 2)
-                    size_label = CustomLabel(text='{}m'.format(file_size), size_hint=(0.1, 1.0), font_size=20)
+                    size_label = CustomLabel(text='{}m'.format(file_size), size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                     file_label_layout.bind(on_touch_down=self.open_file)
                     file_label_layout.add_widget(file_path_label)
                     file_label_layout.add_widget(size_label)
@@ -124,9 +125,9 @@ class FileSearchPopup(OperationPopup):
                         if img_path:
                             image = Image(source=img_path, size_hint=(0.2, 1.0))
                             file_label_layout.add_widget(image)
-                        file_path_label = CustomLabel(text=r.replace(self.path_text, '').strip('\\'), size_hint=(0.8, 1.0), font_size=25)
+                        file_path_label = CustomLabel(text=r.replace(self.path_text, '').strip('\\'), size_hint=(0.8, 1.0), font_size=BIG_SIZE)
                         file_size = round(os.path.getsize(r) / 1024 / 1024, 2)
-                        size_label = CustomLabel(text='{}m'.format(file_size), size_hint=(0.1, 1.0), font_size=20)
+                        size_label = CustomLabel(text='{}m'.format(file_size), size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                         file_label_layout.bind(on_touch_down=self.open_file)
                         file_label_layout.add_widget(file_path_label)
                         file_label_layout.add_widget(size_label)
@@ -152,19 +153,19 @@ class FileSearchPopup(OperationPopup):
     def remove_item_widget(self, instance: Button):
         layout = list(filter(lambda i: isinstance(i, BoxLayout), instance.parent.children))[0]
         label = list(filter(lambda i: isinstance(i, CustomLabel), reversed(layout.children)))[0]
-        path = os.path.join(self.path_text, label.text)
+        path = os.path.join(self.path_text, label.text.strip('/\\'))
         os.remove(path)
         instance.parent.parent.remove_widget(instance.parent)
 
     def open_file_dir(self, instance: Button):
         layout = list(filter(lambda i: isinstance(i, BoxLayout), instance.parent.children))[0]
         label = list(filter(lambda i: isinstance(i, CustomLabel), reversed(layout.children)))[0]
-        file_path = os.path.join(self.path_text, label.text)
+        file_path = os.path.join(self.path_text, label.text.strip('/\\'))
         dir_path = os.path.split(file_path)[0]
         open_file_by_default_app(dir_path)
 
     def open_file(self, instance, touch):
         if instance.collide_point(*touch.pos):
             label = list(filter(lambda i: isinstance(i, CustomLabel), reversed(instance.children)))[0]
-            file_path = os.path.join(self.path_text, label.text)
+            file_path = os.path.join(self.path_text, label.text.strip('/\\'))
             open_file_by_default_app(file_path)

@@ -3,7 +3,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
 
-from common.config import CLOSE, ENTER, ROLL_BACK
+from common.config import CLOSE, ENTER, ROLL_BACK, SMALL_SIZE, BIG_SIZE, NORMAL_SIZE
 from common.widgets import CustomLabel
 
 
@@ -56,7 +56,7 @@ class OperationPopup(Popup):
         instance.state = 'down'
 
     def show_finish_pop_up(self, msg='操作完成'):
-        finish_pop_up = Popup(title='完成', size_hint=(0.5, 0.5), title_size=25)
+        finish_pop_up = Popup(title='完成', size_hint=(0.5, 0.5), title_size=BIG_SIZE)
         finish_box_layout = BoxLayout(orientation='vertical')
         finish_text = CustomLabel(text=msg, size_hint=(1.0, 0.8), halign='center')
         finish_ensure_btn = Button(text='确认', size_hint=(1.0, 0.2), halign='center')
@@ -70,7 +70,7 @@ class OperationPopup(Popup):
         try:
             self.press_enter()
         except Exception as e:
-            error_popup = Popup(title='错误', size_hint=(0.5, 0.5), title_size=25)
+            error_popup = Popup(title='错误', size_hint=(0.5, 0.5), title_size=BIG_SIZE)
             error_box = BoxLayout(orientation='vertical')
             error_info_label = CustomLabel(text=str(e), halign='center', valign='center')
             btn_dismiss = Button(text='确认', size_hint=(1.0, 0.2), halign='center')
@@ -90,7 +90,7 @@ class OperationPopup(Popup):
             checkbox.active = not checkbox.active
 
     def show_error_pop_up(self, error_msg):
-        finish_pop_up = Popup(title='错误', size_hint=(0.5, 0.5), title_size=25)
+        finish_pop_up = Popup(title='错误', size_hint=(0.5, 0.5), title_size=BIG_SIZE)
         finish_box_layout = BoxLayout(orientation='vertical')
         finish_text = CustomLabel(text=error_msg, size_hint=(1.0, 0.8), halign='center')
         finish_ensure_btn = Button(text='确认', size_hint=(1.0, 0.2), halign='center')

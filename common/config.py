@@ -1,3 +1,4 @@
+import os
 CLOSE = '关闭'
 ENTER = '确认'
 ROLL_BACK = '回退'
@@ -7,6 +8,10 @@ RE_PATTERN = {
     '图片': r'.*\.(jpg|jpeg|png|JPG|JPEG|PNG|GIF|gif)'
 }
 
-HISTORY_FILE_PATH = r'E:\python_projects\file_manager\history'
+HISTORY_FILE_PATH = r'history'
 
-PROJECT_ROOT = r'E:\python_projects\file_manager'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+NORMAL_SIZE = 30
+BIG_SIZE = 40
+SMALL_SIZE = 20

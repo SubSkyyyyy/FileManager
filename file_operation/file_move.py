@@ -8,7 +8,7 @@ JSON_FILE_NAME_DICT = {
     'move_up': 'move_up.json',
     'move_to_target': 'move_to_target.json',
     'move_to_parent_folder': 'move_to_parent_folder.json',
-    'move_single_file_to_parent_folder': 'move_single_file_to_parent_folder'
+    'move_single_file_to_parent_folder': 'move_single_file_to_parent_folder.json'
 }
 
 
@@ -19,7 +19,7 @@ def move_file(root_path, pattern, operation, target_folder='', with_parent_name=
     for root, dirs, files in dir_list:
         if operation != 'move_single_file_to_parent_folder':
             for file in files:
-                origin_path = os.path.join(root, file)
+                origin_path = os.path.join(root, file.strip('/\\'))
                 if not os.path.isfile(origin_path) or not re.match(pattern, file):
                     continue
                 new_file_name: str = file
@@ -33,40 +33,45 @@ def move_file(root_path, pattern, operation, target_folder='', with_parent_name=
                 if operation in 'move_up':
                     target_dir = parent_path
                 elif operation == 'move_to_target':
-                    target_dir = os.path.join(root_path, target_folder)
+                    target_dir = os.path.join(root_path, target_folder.strip('/\\'))
                 else:
-                    target_dir = os.path.join(root, target_folder)
+                    target_dir = os.path.join(root, target_folder.strip('/\\'))
 
                 if not os.path.isdir(target_dir):
                     os.makedirs(target_dir)
 
-                target_path = os.path.join(target_dir, new_file_name)
+                target_path = os.path.join(target_dir, new_file_name.strip('/\\'))
 
-                if os.path.isfile(target_path):
-                    start_idx = 1
-                    while os.path.isfile(target_path):
-                        new_file_name_part, ext = os.path.splitext(new_file_name)
-                        new_file_name = '{}_{}{}'.format(new_file_name, start_idx, ext)
-                        target_path = os.path.join(parent_path, new_file_name)
-                        start_idx += 1
                 move_dicts[origin_path] = target_path
         else:
             for dir in dirs:
-                origin_path = os.path.join(root, dir)
+                origin_path = os.path.join(root, dir.strip('/\\'))
                 if not os.path.isdir(origin_path):
                     continue
                 file_list = os.listdir(origin_path)
                 if len(file_list) != 1:
                     continue
                 file = file_list[0]
-                origin_path = os.path.join(origin_path, file)
+                origin_path = os.path.join(origin_path, file.strip('/\\'))
                 if not os.path.isfile(origin_path):
                     continue
-                _, ext = os.path.splitext(file)
-                target_path = os.path.join(root, '{}{}'.format(dir, ext))
+                if with_parent_name:
+                    _, ext = os.path.splitext(file)
+                    target_path = os.path.join(root, '{}{}'.format(dir, ext).strip('/\\'))
+                else:
+                    target_path = os.path.join(root, file.strip('/\\'))
                 move_dicts[origin_path] = target_path
 
     for o_path in move_dicts:
+        target_path = move_dicts[o_path]
+        file_name = target_path.split('/')[-1].split('\\')[-1]
+        file_name_part, ext = os.path.splitext(file_name)
+        if os.path.exists(target_path):
+            start_idx = 1
+            while os.path.exists(move_dicts[o_path]):
+                new_file_name = '{}_{}{}'.format(file_name_part, start_idx, ext)
+                move_dicts[o_path] = target_path.replace(file_name, new_file_name)
+                start_idx += 1
         shutil.move(o_path, move_dicts[o_path])
         record_dict = {
             root_path: {
@@ -82,7 +87,7 @@ def move_file(root_path, pattern, operation, target_folder='', with_parent_name=
 
 def remove_empty_dir(root_path):
     for dir_p in os.listdir(root_path):
-        path = os.path.join(root_path, dir_p)
+        path = os.path.join(root_path, dir_p.strip('/\\'))
         if os.path.isdir(path):
             if len(os.listdir(path)) == 0:
                 os.removedirs(path)

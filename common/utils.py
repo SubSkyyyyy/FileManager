@@ -54,7 +54,10 @@ def generate_thumbnail(path):
         return path
     if is_video(path):
         thumbnail_name = convert_path_to_hash_str(path)
-        thumbnail_path = os.path.join(PROJECT_ROOT, 'img', '{}.png'.format(thumbnail_name))
+        img_dir = os.path.join(PROJECT_ROOT, 'img')
+        if not os.path.isdir(img_dir):
+            os.makedirs(img_dir)
+        thumbnail_path = os.path.join(img_dir, '{}.png'.format(thumbnail_name))
         if os.path.isfile(thumbnail_path):
             return thumbnail_path
         cap = cv2.VideoCapture(path)

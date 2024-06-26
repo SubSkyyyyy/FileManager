@@ -9,6 +9,8 @@ from common.widgets import CustomLabel
 from popup_widgets.OperationPopup import OperationPopup
 from file_operation.file_move import move_file, file_move_roll_back
 
+from common.config import BIG_SIZE, NORMAL_SIZE, SMALL_SIZE
+
 
 class FileMovePopup(OperationPopup):
     def __init__(self, **kwargs):
@@ -19,8 +21,8 @@ class FileMovePopup(OperationPopup):
     def prepare_widgets(self):
         # 输入行
         input_box = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.35))
-        origin_name_label = CustomLabel(text='源文件匹配', size_hint=(0.1, 1.0), font_size=20)
-        self.origin_name_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=20)
+        origin_name_label = CustomLabel(text='源文件匹配', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
+        self.origin_name_pattern_input = TextInput(size_hint=(0.3, 1.0), font_size=NORMAL_SIZE)
         self.origin_name_pattern_input.bind(text=self.on_pattern_text_input_change)
         pattern_choices = ['视频', '图片']
         self.pattern_choice_radio = []
@@ -29,10 +31,10 @@ class FileMovePopup(OperationPopup):
             choice_radio.bind(on_press=self.on_pattern_radio_press)
             self.pattern_choice_radio.append(choice_radio)
 
-        target_name_label = CustomLabel(text='目标目录', size_hint=(0.1, 1.0), font_size=20)
+        target_name_label = CustomLabel(text='目标目录', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
         self.target_name_input = TextInput(size_hint=(0.3, 1.0))
 
-        rename_with_parent_dir_label = CustomLabel(text='使用父目录名称', font_size=20, size_hint=(0.15, 1.0))
+        rename_with_parent_dir_label = CustomLabel(text='使用父目录名称', font_size=NORMAL_SIZE, size_hint=(0.15, 1.0))
         self.rename_with_parent_dir_checkbox = CheckBox(size_hint=(0.05, 1.0))
         self.check_box_dict['使用父目录名称'] = self.rename_with_parent_dir_checkbox
         self.bind_label_with_checkbox(rename_with_parent_dir_label)
@@ -62,16 +64,16 @@ class FileMovePopup(OperationPopup):
         height = 0.6
         # 操作按钮
         t_btn = ToggleButton(text=self.move_up, group='g1', state='down', size_hint=(1.0, height))
-        t_btn.bind(on_release=self.on_toggle_btn_release, on_press=self.on_toggle_btn_press)
+        t_btn.bind(on_release=self.on_toggle_btn_release)
 
         t_btn2 = ToggleButton(text=self.move_to_target, group='g1', size_hint=(1.0, height))
-        t_btn2.bind(on_release=self.on_toggle_btn_release, on_press=self.on_toggle_btn_press)
+        t_btn2.bind(on_release=self.on_toggle_btn_release)
 
         t_btn3 = ToggleButton(text=self.move_to_parent_folder, group='g1', size_hint=(1.0, height))
-        t_btn3.bind(on_release=self.on_toggle_btn_release, on_press=self.on_toggle_btn_press)
+        t_btn3.bind(on_release=self.on_toggle_btn_release)
 
         t_btn4 = ToggleButton(text=self.move_single_file_to_parent_folder, group='g1', size_hint=(1.0, height))
-        t_btn4.bind(on_release=self.on_toggle_btn_release, on_press=self.on_toggle_btn_press)
+        t_btn4.bind(on_release=self.on_toggle_btn_release)
 
         self.operation_toggle = [t_btn, t_btn2, t_btn3, t_btn4]
 
@@ -120,7 +122,7 @@ class FileMovePopup(OperationPopup):
             move_file(self.path_text, re_pattern, self.opt_dict[option_str], target_folder=target_parth, with_parent_name=with_parent_name)
             self.show_finish_pop_up('移动完成')
         except Exception as e:
-            self.show_error_pop_up(e)
+            self.show_error_pop_up(str(e))
 
     def press_roll_back(self, instance):
         try:
@@ -130,11 +132,3 @@ class FileMovePopup(OperationPopup):
             self.show_finish_pop_up('回退完成')
         except Exception as e:
             self.show_error_pop_up(str(e))
-
-    def on_toggle_btn_press(self, instance):
-        if instance.text == self.move_single_file_to_parent_folder:
-            self.rename_with_parent_dir_checkbox.active = True
-            self.rename_with_parent_dir_checkbox.disabled = True
-        else:
-            self.rename_with_parent_dir_checkbox.active = False
-            self.rename_with_parent_dir_checkbox.disabled = False

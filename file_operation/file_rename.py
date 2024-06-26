@@ -71,7 +71,7 @@ def file_rename(root_path, origin_pattern, replace_format, replace_dir_name=Fals
     for root, dirs, files in os.walk(root_path):
         if replace_file_name:
             for file in files:
-                origin_path = os.path.join(root, file)
+                origin_path = os.path.join(root, file.strip('/\\'))
                 if not os.path.isfile(origin_path) or not re.search(origin_pattern, file):
                     continue
                 file_name_list = file_name_replace.get(root, [])
@@ -79,7 +79,7 @@ def file_rename(root_path, origin_pattern, replace_format, replace_dir_name=Fals
                 file_name_replace[root] = file_name_list
         if replace_dir_name:
             for dir in dirs:
-                origin_path = os.path.join(root, dir)
+                origin_path = os.path.join(root, dir.strip('/\\'))
                 if not os.path.isdir(origin_path) or not re.search(origin_pattern, dir):
                     continue
                 dir_name_list = dir_name_replace.get(root, [])
@@ -94,14 +94,14 @@ def file_rename(root_path, origin_pattern, replace_format, replace_dir_name=Fals
             items = replace_dict[item_root]
             for item in items:
                 target_name = replace_by_re(pattern_same_parts, item, origin_pattern, replace_format)
-                target_path = os.path.join(item_root, target_name)
+                target_path = os.path.join(item_root, target_name.strip('/\\'))
                 suffix = 1
-                while os.path.exists(target_path) and target_path != os.path.join(item_root, item):
+                while os.path.exists(target_path) and target_path != os.path.join(item_root, item.strip('/\\')):
                     name, ext = os.path.splitext(target_name)
                     target_name = '{}-{}{}'.format(name, suffix, ext)
                     suffix += 1
-                    target_path = os.path.join(item_root, target_name)
-                replace_mapping[os.path.join(item_root, item)] = target_path
+                    target_path = os.path.join(item_root, target_name.strip('/\\'))
+                replace_mapping[os.path.join(item_root, item.strip('/\\'))] = target_path
 
     replace_mapping = dict(sorted(replace_mapping.items(), key=lambda i: i[0], reverse=True))
     for origin_item in replace_mapping:
@@ -121,11 +121,11 @@ def file_suffix_change(root_path, origin_pattern, replace_format):
     change_dict = {}
     for root, dirs, files in os.walk(root_path):
         for file in files:
-            o_path = os.path.join(root, file)
+            o_path = os.path.join(root, file.strip('/\\'))
             if not os.path.isfile(o_path) or file.split('.')[-1] != origin_pattern:
                 continue
             new_name = file.replace(origin_pattern, replace_format)
-            t_path = os.path.join(root, new_name)
+            t_path = os.path.join(root, new_name.strip('/\\'))
             change_dict[o_path] = t_path
     for o_path in change_dict:
         shutil.move(o_path, change_dict[o_path])
