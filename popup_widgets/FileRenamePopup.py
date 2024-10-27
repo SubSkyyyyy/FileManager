@@ -19,11 +19,11 @@ class FileRenamePopup(OperationPopup):
         self.widget_list = []
 
         input_box_layout = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.35))
-        origin_pattern_label = CustomLabel(text='匹配文件名', size_hint=(0.15, 1.0), halign='center', valign='center')
+        origin_pattern_label = CustomLabel(text='匹配文件名', size_hint=(0.15, 1.0), halign='center', valign='center', font_size=NORMAL_SIZE)
         self.origin_pattern_input = TextInput(size_hint=(0.2, 1.0), font_size=NORMAL_SIZE)
-        replace_pattern_label = CustomLabel(text='替换字符', size_hint=(0.15, 1.0), halign='center', valign='center')
+        replace_pattern_label = CustomLabel(text='替换字符', size_hint=(0.15, 1.0), halign='center', valign='center', font_size=NORMAL_SIZE)
         self.replace_pattern_input = TextInput(size_hint=(0.2, 1.0), font_size=NORMAL_SIZE)
-        replace_full_name = CustomLabel(text='全名称替换', size_hint=(0.2, 1.0))
+        replace_full_name = CustomLabel(text='全名称替换', size_hint=(0.2, 1.0), font_size=NORMAL_SIZE)
         self.replace_full_name_checkbox = CheckBox(size_hint=(0.1, 1.0))
         input_box_layout.add_widget(origin_pattern_label)
         input_box_layout.add_widget(self.origin_pattern_input)
@@ -40,16 +40,16 @@ class FileRenamePopup(OperationPopup):
         }
         self.replace_option_radio = []
         for radio_text in self.replace_option_dict:
-            toggle = ToggleButton(group='rename_option_choice', text=radio_text, size_hint=(1.0, 0.7))
+            toggle = ToggleButton(group='rename_option_choice', text=radio_text, size_hint=(1.0, 0.7), font_size=BIG_SIZE)
             toggle.bind(on_release=self.on_toggle_btn_release, on_press=self.on_toggle_btn_press)
             self.replace_option_radio.append(toggle)
         else:
             self.replace_option_radio[0].state = 'down'
 
         option_file_checkboxes = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.2))
-        dir_label = CustomLabel(text='文件夹名称替换', halign='center')
+        dir_label = CustomLabel(text='文件夹名称替换', halign='center', font_size=BIG_SIZE)
         self.dir_checkbox = CheckBox(size_hint=(0.2, 1.0))
-        file_label = CustomLabel(text='文件名替换', halign='center')
+        file_label = CustomLabel(text='文件名替换', halign='center', font_size=BIG_SIZE)
         self.file_checkbox = CheckBox(size_hint=(0.2, 1.0))
         self.check_box_dict = {
             '文件名替换': self.file_checkbox,

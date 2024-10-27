@@ -63,16 +63,16 @@ class FileMovePopup(OperationPopup):
 
         height = 0.6
         # 操作按钮
-        t_btn = ToggleButton(text=self.move_up, group='g1', state='down', size_hint=(1.0, height))
+        t_btn = ToggleButton(text=self.move_up, group='g1', state='down', size_hint=(1.0, height), font_size=BIG_SIZE)
         t_btn.bind(on_release=self.on_toggle_btn_release)
 
-        t_btn2 = ToggleButton(text=self.move_to_target, group='g1', size_hint=(1.0, height))
+        t_btn2 = ToggleButton(text=self.move_to_target, group='g1', size_hint=(1.0, height), font_size=BIG_SIZE)
         t_btn2.bind(on_release=self.on_toggle_btn_release)
 
-        t_btn3 = ToggleButton(text=self.move_to_parent_folder, group='g1', size_hint=(1.0, height))
+        t_btn3 = ToggleButton(text=self.move_to_parent_folder, group='g1', size_hint=(1.0, height), font_size=BIG_SIZE)
         t_btn3.bind(on_release=self.on_toggle_btn_release)
 
-        t_btn4 = ToggleButton(text=self.move_single_file_to_parent_folder, group='g1', size_hint=(1.0, height))
+        t_btn4 = ToggleButton(text=self.move_single_file_to_parent_folder, group='g1', size_hint=(1.0, height), font_size=BIG_SIZE)
         t_btn4.bind(on_release=self.on_toggle_btn_release)
 
         self.operation_toggle = [t_btn, t_btn2, t_btn3, t_btn4]

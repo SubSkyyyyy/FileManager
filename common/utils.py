@@ -4,6 +4,7 @@ import subprocess
 import cv2
 import hashlib
 from common.config import PROJECT_ROOT
+from pywinauto import Application
 
 
 class CombineDict(dict):
@@ -20,6 +21,16 @@ class CombineDict(dict):
                 else:
                     value_stack.append(d[key])
                     dict_stack.append(curr_dict[key])
+
+
+def open_file_in_dir(path):
+    if sys.platform == 'win32':
+        subprocess.run(f'explorer /select, "{path}"')
+    elif sys.platform == 'darwin':
+        subprocess.run(["open", "-R", path])
+        # subprocess.run(['open', path])
+    else:
+        subprocess.run(['xdg-open', path])
 
 
 def open_file_by_default_app(path):

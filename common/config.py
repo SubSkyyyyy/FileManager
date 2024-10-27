@@ -1,4 +1,6 @@
 import os
+import sys
+
 CLOSE = '关闭'
 ENTER = '确认'
 ROLL_BACK = '回退'
@@ -12,6 +14,11 @@ HISTORY_FILE_PATH = r'history'
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+
 NORMAL_SIZE = 30
 BIG_SIZE = 40
 SMALL_SIZE = 20
+if sys.platform == 'win32':
+    NORMAL_SIZE = 20
+    BIG_SIZE = 30
+    SMALL_SIZE = 10

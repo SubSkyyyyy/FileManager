@@ -11,7 +11,7 @@ from kivy.uix.image import Image
 from common.widgets import CustomLabel
 
 from file_operation.file_search import file_search
-from common.utils import open_file_by_default_app, generate_thumbnail
+from common.utils import open_file_by_default_app, generate_thumbnail, open_file_in_dir
 from common.config import NORMAL_SIZE, BIG_SIZE, SMALL_SIZE
 
 
@@ -40,7 +40,7 @@ class FileSearchPopup(OperationPopup):
         }
 
         for key in self.opt_dict:
-            tg = ToggleButton(group='search', text=key, size_hint=(1.0, 0.5))
+            tg = ToggleButton(group='search', text=key, size_hint=(1.0, 0.5), font_size=BIG_SIZE)
             tg.bind(on_release=self.on_toggle_btn_release)
             self.opt_toggles.append(tg)
         self.opt_toggles[0].state = 'down'
@@ -104,9 +104,9 @@ class FileSearchPopup(OperationPopup):
                     file_label_layout.add_widget(file_path_label)
                     file_label_layout.add_widget(size_label)
 
-                    open_dir_btn = Button(text='所在位置', size_hint=(0.1, 1.0))
+                    open_dir_btn = Button(text='所在位置', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                     open_dir_btn.bind(on_press=self.open_file_dir)
-                    rm_btn = Button(text='删除', size_hint=(0.1, 1.0))
+                    rm_btn = Button(text='删除', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                     rm_btn.bind(on_press=self.remove_item_widget)
                     item_layout.add_widget(file_label_layout)
                     item_layout.add_widget(open_dir_btn)
@@ -131,16 +131,16 @@ class FileSearchPopup(OperationPopup):
                         file_label_layout.bind(on_touch_down=self.open_file)
                         file_label_layout.add_widget(file_path_label)
                         file_label_layout.add_widget(size_label)
-                        open_dir_btn = Button(text='所在位置', size_hint=(0.1, 1.0))
+                        open_dir_btn = Button(text='所在位置', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                         open_dir_btn.bind(on_press=self.open_file_dir)
-                        rm_btn = Button(text='删除', size_hint=(0.1, 1.0))
+                        rm_btn = Button(text='删除', size_hint=(0.1, 1.0), font_size=NORMAL_SIZE)
                         rm_btn.bind(on_press=self.remove_item_widget)
 
                         item_layout.add_widget(file_label_layout)
                         item_layout.add_widget(open_dir_btn)
                         item_layout.add_widget(rm_btn)
                         result_list_layout.add_widget(item_layout)
-            close_btn = Button(text='关闭', size_hint=(1.0, 0.05))
+            close_btn = Button(text='关闭', size_hint=(1.0, 0.05), font_size=BIG_SIZE)
             close_btn.bind(on_press=result_popup.dismiss)
             scroll_view.add_widget(result_list_layout)
             pop_main_layout.add_widget(scroll_view)
@@ -162,7 +162,7 @@ class FileSearchPopup(OperationPopup):
         label = list(filter(lambda i: isinstance(i, CustomLabel), reversed(layout.children)))[0]
         file_path = os.path.join(self.path_text, label.text.strip('/\\'))
         dir_path = os.path.split(file_path)[0]
-        open_file_by_default_app(dir_path)
+        open_file_in_dir(file_path)
 
     def open_file(self, instance, touch):
         if instance.collide_point(*touch.pos):
