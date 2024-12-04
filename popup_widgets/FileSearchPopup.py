@@ -173,7 +173,7 @@ class LazyItem(BoxLayout):
         if self.file_obj.thumbnail:
             self.img_widget.load_image(self.file_obj.thumbnail)
         else:
-            self.img_widget.unbind(self.open_big_img)
+            self.img_widget.unbind(on_press=self.open_big_img)
 
     def release_resources(self):
         self.img_widget.release_image()
