@@ -9,6 +9,13 @@ from popup_widgets.FileRenamePopup import FileRenamePopup
 from popup_widgets.FileScrapyPopup import FileScrapyPopup
 from popup_widgets.FileSearchPopup import FileSearchPopup
 from popup_widgets.OperationPopup import OperationPopup
+from kivy.config import Config
+# from kivy.metrics import dp
+# label.font_size = dp(16)
+Config.set('graphics', 'multisamples', '4')
+Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
+Config.set('graphics', 'width', '1920')
+Config.set('graphics', 'height', '1080')
 
 LabelBase.register(name="Roboto", fn_regular="font_family/xingcao.ttf")
 
