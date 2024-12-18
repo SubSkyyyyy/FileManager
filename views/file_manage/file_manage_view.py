@@ -39,7 +39,7 @@ class FileManageScreen(BaseScreen):
 
 
 		search_block_layout = BoxLayout(orientation='vertical', size_hint=(1.0, 0.3))
-		search_title = CustomLabel(size_hint=(1.0, 0.3), text='重命名')
+		search_title = CustomLabel(size_hint=(1.0, 0.3), text='查找')
 		search_option_layout = BoxLayout(orientation='horizontal', size_hint=(1.0, 0.7))
 		self.search_by_re = Button(text='正则查找', size_hint=(0.2, 1.0))
 		self.search_by_time = Button(text='视频时长查找', size_hint=(0.2, 1.0))
@@ -51,7 +51,5 @@ class FileManageScreen(BaseScreen):
 		self.roll_back_btn = Button(text='回退', size_hint=(1.0, 0.1))
 		self.add_widgets(self.main_layout, [input_layout, move_block_layout, rename_block_layout, search_block_layout, self.roll_back_btn])
 
-
-
-
-
+	def move_to_up(self, instance):
+		pass

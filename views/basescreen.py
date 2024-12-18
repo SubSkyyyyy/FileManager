@@ -7,6 +7,7 @@ class BaseScreen(Screen):
 		super().__init__(**kwargs)
 		self.main_layout = BoxLayout(orientation='vertical')
 		self.prepare_widgets()
+		self.add_widget(self.main_layout)
 
 	def prepare_widgets(self):
 		pass

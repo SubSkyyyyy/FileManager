@@ -61,8 +61,21 @@ class MainApp(App):
         
     def build(self):
         main_page = MenuPage()
-        print(os.environ)
         return main_page
+    #     from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition
+    #     from views.file_manage.file_manage_view import FileManageScreen
+    #     layout = BoxLayout(orientation='vertical')
+    #     self.sm = ScreenManager()
+    #     self.sm.add_widget(FileManageScreen(name='测试'))
+    #     # layout.add_widget(self.sm)
+    #     return self.sm
+    #
+    #
+    #     # main_page = MenuPage()
+    #     # print(os.environ)
+    #     # return main_page
+    # def switch_screen(self, instance):
+    #     self.sm.current_screen = '测试'
 
 
 if __name__ == '__main__':
